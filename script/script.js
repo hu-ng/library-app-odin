@@ -25,9 +25,17 @@ Book.prototype.generateTemplate = function() {
     <td>${this.title}</td>
     <td>${this.author}</td>
     <td>${this.pages}</td>
-    <td>${this.readBool ? "Yes" : "No"}</td>
-    <td><button data-id=${this.id}>Delete</button></td>`
+    <td>
+      <a class="toggle-read" href="#">${this.readBool ? "Yes" : "No"}</a>
+    </td>
+    <td>
+      <button class="delete-btn">Delete</button>
+    </td>`
 };
+
+addBookToLibrary(new Book("Twilight","Somebody","300", true));
+
+renderLibrary();
 
 // Add a book to the library
 function addBookToLibrary(book) {
@@ -48,8 +56,19 @@ function renderLibrary() {
   myLibrary.forEach(function (book, idx) {
     if (!book.rendered) {
       let row = libraryTable.insertRow(-1)
+      row.setAttribute("data-id", book.id)
       renderBook(book.generateTemplate(), row)
       book.rendered = true
+
+      // Add eventlistener for delete button
+      row.querySelector("td .delete-btn").addEventListener("click", function() {
+        deleteBook(this)
+      })
+
+      // Add event listener for read status toggle
+      row.querySelector("td .toggle-read").addEventListener("click", function() {
+        toggleRead(this)
+      })
     }
   })
 };
@@ -80,6 +99,34 @@ confirmBtn.addEventListener("click", function() {
 });
 
 
-addBookToLibrary(new Book("Twilight","Somebody","300", true));
+// Delete a book
+function deleteBook(deleteBtn) {
+  // Get bookID from DOM node
+  let currRow = deleteBtn.parentNode.parentNode;
+  let bookID = currRow.dataset.id;
 
-renderLibrary();
+  // Find and remove book from list
+  let book = myLibrary.find(book => book.id == bookID);
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].id == book.id) {
+      myLibrary.splice(i, 1);
+    }
+  };
+
+  // Find and remove row from table
+  libraryTable.tBodies[0].removeChild(currRow);
+};
+
+// Toggle read status
+function toggleRead(toggle){
+  let currRow = toggle.parentNode.parentNode;
+  let bookID = currRow.dataset.id;
+  let book = myLibrary.find(book => book.id == bookID);
+  book.readBool = !book.readBool;
+
+  if (book.readBool) {
+    toggle.innerHTML = "Yes"
+  } else {
+    toggle.innerHTML = "No"
+  };
+};
