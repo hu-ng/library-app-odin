@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Library Application
+        </title>
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Library Keep-Track-Inator</h1>
+            <button id="addBook">NEW BOOK</button>
+            <table id="library">
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Read Status</th>
+                </tr>
+                <tr style="display: none" id="addBookRow">
+                    <form method="POST">
+                        <td>
+                            <input type="text">
+                        </td>
+                        <td>
+                            <input type="text">
+                        </td>
+                        <td>
+                            <input type="text">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="read" id="readStatus">
+                        </td>
+                        <td>
+                            <button type="button" id="confirmBtn">Confirm</button>
+                        </td>
+                    </form>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script src="script/script.js"></script>
+</html>
