@@ -33,7 +33,9 @@ Book.prototype.generateTemplate = function() {
     </td>`
 };
 
-addBookToLibrary(new Book("Twilight","Somebody","300", true));
+addBookToLibrary(new Book("Ready Player One","Ernest Cline","385", false));
+addBookToLibrary(new Book("So Good They Can't Ignore You"," Cal Newport","267", false));
+addBookToLibrary(new Book("The Art of Not Giving a Fuck","Mark Manson","224", false));
 
 renderLibrary();
 
